@@ -85,7 +85,7 @@ public class ProductDao implements Dao<Product> {
 
     public List<Product> getAll(String order) {
         ArrayList<Product> list = new ArrayList();
-        String sql = "SELECT * FROM product  ORDER BY" + order;
+        String sql = "SELECT * FROM product  ORDER BY " + order;
         Connection conn = DatabaseHelper.getConnect();
         try {
             Statement stmt = conn.createStatement();

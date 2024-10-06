@@ -6,7 +6,17 @@ package com.werapan.databaseproject.ui;
 
 import com.werapan.databaseproject.model.User;
 import com.werapan.databaseproject.service.UserService;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -16,6 +26,7 @@ public class UserDialog extends javax.swing.JDialog {
 
     private final UserService userService;
     private User editedUser;
+    private String path;
 
     public UserDialog(java.awt.Frame parent, User editedUser) {
         super(parent, true);
@@ -23,6 +34,44 @@ public class UserDialog extends javax.swing.JDialog {
         this.editedUser = editedUser;
         setObjectToForm();
         userService = new UserService();
+        loadImage();
+    }
+
+    private void loadImage() {
+        if (editedUser.getId() > 0) {
+            ImageIcon icon = new ImageIcon("./user" + editedUser.getId() + ".png");
+            Image image = icon.getImage();
+            Image newImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+            icon.setImage(newImage);
+            jLabel2.setIcon(icon);
+        }
+
+    }
+
+    private void loadImage(String path) {
+        if (editedUser.getId() > 0) {
+            ImageIcon icon = new ImageIcon(path);
+            Image image = icon.getImage();
+            Image newImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+            icon.setImage(newImage);
+            jLabel2.setIcon(icon);
+        }
+
+    }
+
+    public void chooseImage() {
+        JFileChooser fileChooser = new JFileChooser();
+
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Image files", "png", "jpg");
+        fileChooser.setFileFilter(filter);
+
+        int returnVal = fileChooser.showOpenDialog(null);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            System.out.println("Seclected file " + file.getAbsolutePath());
+            loadImage(file.getAbsolutePath());
+            path = file.getAbsolutePath();
+        }
     }
 
     /**
@@ -48,6 +97,7 @@ public class UserDialog extends javax.swing.JDialog {
         cmbRole = new javax.swing.JComboBox<>();
         btnSave = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -100,18 +150,28 @@ public class UserDialog extends javax.swing.JDialog {
             }
         });
 
+        jLabel2.setOpaque(true);
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(76, 76, 76)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(76, 76, 76)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cmbRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -160,7 +220,9 @@ public class UserDialog extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(cmbRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
+                .addGap(13, 13, 13)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
                     .addComponent(btnCancel))
@@ -192,28 +254,44 @@ public class UserDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        User user;
         if (editedUser.getId() < 0) {//Add New
             setFormToObject();
-            userService.addNew(editedUser);
+            user = userService.addNew(editedUser);
 
         } else {
             setFormToObject();
-            userService.update(editedUser);
+            user = userService.update(editedUser);
         }
+        saveImage(user);
         this.dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
 
+    private void saveImage(User user) {
+        if(path == null || path.isEmpty()) return;
+        try {
+            BufferedImage image = ImageIO.read(new File(path));
+            ImageIO.write(image, "png", new File("./user" + user.getId() + ".png"));
+        } catch (IOException ex) {
+            Logger.getLogger(UserDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-       dispose();
+        dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        chooseImage();
+    }//GEN-LAST:event_jLabel2MouseClicked
 
     private void setFormToObject() {
         editedUser.setLogin(edtLogin.getText());
         editedUser.setName(edtName.getText());
         editedUser.setPassword(new String(edtPassword.getPassword()));
-        if(rbtMale.isSelected()){
+        if (rbtMale.isSelected()) {
             editedUser.setGender("M");
-        }else{
+        } else {
             editedUser.setGender("F");
         }
         editedUser.setRole(cmbRole.getSelectedIndex());
@@ -223,9 +301,9 @@ public class UserDialog extends javax.swing.JDialog {
         edtLogin.setText(editedUser.getLogin());
         edtName.setText(editedUser.getName());
         edtPassword.setText(editedUser.getPassword());
-        if(editedUser.getGender().equals("M")){
+        if (editedUser.getGender().equals("M")) {
             rbtMale.setSelected(true);
-        }else{
+        } else {
             rbtFemale.setSelected(true);
         }
         cmbRole.setSelectedIndex(editedUser.getRole());
@@ -239,6 +317,7 @@ public class UserDialog extends javax.swing.JDialog {
     private javax.swing.JTextField edtName;
     private javax.swing.JPasswordField edtPassword;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

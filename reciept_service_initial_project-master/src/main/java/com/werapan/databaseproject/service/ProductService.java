@@ -8,6 +8,7 @@ import com.werapan.databaseproject.dao.ProductDao;
 import com.werapan.databaseproject.dao.ProductDao;
 import com.werapan.databaseproject.model.Product;
 import com.werapan.databaseproject.model.Product;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,27 +16,8 @@ import java.util.List;
  * @author werapan
  */
 public class ProductService {
-    public Product getById(int id){
-        ProductDao productDao = new ProductDao();
-        return productDao.get(id);
-    }
-    public List<Product> getProduct(){
-        ProductDao productDao = new ProductDao();
-        return productDao.getAll(" product_id asc");
-    }
-
-    public Product addNew(Product editedProduct) {
-        ProductDao productDao = new ProductDao();
-        return productDao.save(editedProduct);
-    }
-
-    public Product update(Product editedProduct) {
-        ProductDao productDao = new ProductDao();
-        return productDao.update(editedProduct);
-    }
-
-    public int delete(Product editedProduct) {
-        ProductDao productDao = new ProductDao();
-        return productDao.delete(editedProduct);
+    private ProductDao productDao = new ProductDao();
+    public ArrayList<Product> getProductOrderByName(){
+        return (ArrayList<Product>) productDao.getAll(" product_name ASC ");
     }
 }

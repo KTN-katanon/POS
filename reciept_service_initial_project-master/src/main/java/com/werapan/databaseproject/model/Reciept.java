@@ -18,6 +18,7 @@ import java.util.logging.Logger;
  * @author werapan
  */
 public class Reciept {
+
     private int id;
     private Date createdDate;
     private double total;
@@ -38,6 +39,7 @@ public class Reciept {
         this.userId = userId;
         this.customerId = customerId;
     }
+
     public Reciept(Date createdDate, double total, double cash, int totalQty, int userId, int customerId) {
         this.id = -1;
         this.createdDate = createdDate;
@@ -47,6 +49,7 @@ public class Reciept {
         this.userId = userId;
         this.customerId = customerId;
     }
+
     public Reciept(double total, double cash, int totalQty, int userId, int customerId) {
         this.id = -1;
         this.createdDate = null;
@@ -56,6 +59,7 @@ public class Reciept {
         this.userId = userId;
         this.customerId = customerId;
     }
+
     public Reciept(double cash, int userId, int customerId) {
         this.id = -1;
         this.createdDate = null;
@@ -65,6 +69,7 @@ public class Reciept {
         this.userId = userId;
         this.customerId = customerId;
     }
+
     public Reciept() {
         this.id = -1;
         this.createdDate = null;
@@ -157,31 +162,38 @@ public class Reciept {
         this.recieptDetails = recieptDetails;
     }
 
-    public void addRecieptDetail(RecieptDetail recieptDetail){
+    public void addRecieptDetail(RecieptDetail recieptDetail) {
         recieptDetails.add(recieptDetail);
         calculateTotal();
     }
-    public void delRecieptDetail(RecieptDetail recieptDetail){
+
+    public void addRecieptDetail(Product product, int qty) {
+        RecieptDetail rd = new RecieptDetail(product.getId(), product.getName(), product.getPrice(), 1, product.getPrice(), -1);
+        recieptDetails.add(rd);
+        calculateTotal();
+    }
+
+    public void delRecieptDetail(RecieptDetail recieptDetail) {
         recieptDetails.remove(recieptDetail);
         calculateTotal();
     }
-    
+
     private void calculateTotal() {
         int totalQty = 0;
         double total = 0.0;
-        for(RecieptDetail rd : recieptDetails){
+        for (RecieptDetail rd : recieptDetails) {
             total += rd.getTotalPrice();
             totalQty += rd.getQty();
         }
         this.totalQty = totalQty;
         this.total = total;
     }
-    
+
     @Override
     public String toString() {
         return "Reciept{" + "id=" + id + ", createdDate=" + createdDate + ", total=" + total + ", cash=" + cash + ", totalQty=" + totalQty + ", userId=" + userId + ", customerId=" + customerId + ", user=" + user + ", customer=" + customer + ", recieptDetails=" + recieptDetails + '}';
     }
-    
+
     public static Reciept fromRS(ResultSet rs) {
         Reciept reciept = new Reciept();
         try {
