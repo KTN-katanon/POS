@@ -84,11 +84,11 @@ public class UserDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblId = new javax.swing.JLabel();
+        lblLogin = new javax.swing.JLabel();
+        lblName = new javax.swing.JLabel();
         edtName = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        lblPassword = new javax.swing.JLabel();
         rbtMale = new javax.swing.JRadioButton();
         rbtFemale = new javax.swing.JRadioButton();
         edtPassword = new javax.swing.JPasswordField();
@@ -103,19 +103,19 @@ public class UserDialog extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(153, 255, 153));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel1.setText("ID:");
+        lblId.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblId.setText("ID:");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setText("Login:");
+        lblLogin.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblLogin.setText("Login:");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel4.setText("Name:");
+        lblName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblName.setText("Name:");
 
         edtName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel5.setText("Password:");
+        lblPassword.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblPassword.setText("Password:");
 
         rbtMale.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         rbtMale.setSelected(true);
@@ -166,11 +166,11 @@ public class UserDialog extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblId, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(76, 76, 76)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPassword)
+                            .addComponent(lblLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,7 +184,7 @@ public class UserDialog extends javax.swing.JDialog {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(18, 18, 18)
-                                        .addComponent(jLabel4)
+                                        .addComponent(lblName)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(edtName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -205,14 +205,14 @@ public class UserDialog extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
+                    .addComponent(lblId)
+                    .addComponent(lblLogin)
+                    .addComponent(lblName)
                     .addComponent(edtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(edtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
+                    .addComponent(lblPassword)
                     .addComponent(rbtMale)
                     .addComponent(rbtFemale)
                     .addComponent(edtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -316,13 +316,13 @@ public class UserDialog extends javax.swing.JDialog {
     private javax.swing.JTextField edtLogin;
     private javax.swing.JTextField edtName;
     private javax.swing.JPasswordField edtPassword;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblId;
+    private javax.swing.JLabel lblLogin;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblPassword;
     private javax.swing.JRadioButton rbtFemale;
     private javax.swing.JRadioButton rbtMale;
     // End of variables declaration//GEN-END:variables

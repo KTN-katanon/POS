@@ -4,6 +4,8 @@
  */
 package com.werapan.databaseproject.ui;
 
+import com.werapan.databaseproject.component.ProductListPanel;
+
 /**
  *
  * @author adisa
