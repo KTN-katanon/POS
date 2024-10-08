@@ -169,7 +169,7 @@ public class Reciept {
 
     public void addRecieptDetail(Product product, int qty) {
         RecieptDetail rd = new RecieptDetail(product.getId(), product.getName()
-                , product.getPrice(), qty, product.getPrice(), -1);
+                , product.getPrice(), qty, qty*product.getPrice(), -1);
         recieptDetails.add(rd);
         calculateTotal();
     }
@@ -179,7 +179,7 @@ public class Reciept {
         calculateTotal();
     }
 
-    private void calculateTotal() {
+    public void calculateTotal() {
         int totalQty = 0;
         double total = 0.0;
         for (RecieptDetail rd : recieptDetails) {

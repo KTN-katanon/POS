@@ -40,6 +40,7 @@ public class PosPanel extends javax.swing.JPanel implements BuyProductable {
         initComponents();
         initProductTable();
         reciept = new Reciept();
+        lblUserName.setText(UserService.getCurrentUser().getName());
         reciept.setUser(UserService.getCurrentUser());
         tblRecieptDetail.setModel(new AbstractTableModel() {
             String[] headers = {"Name", "Price", "Qty", "Total"};
@@ -74,6 +75,29 @@ public class PosPanel extends javax.swing.JPanel implements BuyProductable {
                         return recieptDetail.getTotalPrice();
                     default:
                         return "";
+                }
+            }
+
+            @Override
+            public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+                ArrayList<RecieptDetail> recieptDetails = reciept.getRecieptDeatails();
+                RecieptDetail recieptDetail = recieptDetails.get(rowIndex);
+                if (columnIndex == 2) {
+                    int qty = Integer.parseInt((String) aValue);
+                    if(qty<1)return;
+                    recieptDetail.setQty(qty);
+                    reciept.calculateTotal();
+                    refreshReciept();
+                }
+            }
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                switch (columnIndex) {
+                    case 2:
+                        return true;
+                    default:
+                        return false;
                 }
             }
 
